@@ -39,19 +39,28 @@ namespace HealthManager
                 Size = new System.Drawing.Size(380, 280)
             };
             reportRichTextBox.AppendText("Отчёт по активностям:\n");
-            foreach (var activity in activityTracking)
+            if (activityTracking != null)
             {
-                reportRichTextBox.AppendText($" {activity.Key}: {activity.Value} минут.\n");
+                foreach (var activity in activityTracking)
+                {
+                    reportRichTextBox.AppendText($" {activity.Key}: {activity.Value} минут.\n");
+                }
             }
             reportRichTextBox.AppendText("\nОтчёт по питанию:\n");
-            foreach (var food in nutritionTracking)
+            if (nutritionTracking != null)
             {
-                reportRichTextBox.AppendText($" {food.Key}: {food.Value} калорий.\n");
+                foreach (var food in nutritionTracking)
+                {
+                    reportRichTextBox.AppendText($" {food.Key}: {food.Value} калорий.\n");
+                }
             }
             reportRichTextBox.AppendText("\nОтчёт по сну:\n");
-            foreach (var sleep in sleepTracking)
+            if (sleepTracking != null)
             {
-                reportRichTextBox.AppendText($" {sleep.Key}: {sleep.Value} часов.\n");
+                foreach (var sleep in sleepTracking)
+                {
+                    reportRichTextBox.AppendText($" {sleep.Key}: {sleep.Value} часов.\n");
+                }
             }
             this.Controls.Add(reportRichTextBox);
         }

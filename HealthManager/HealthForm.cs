@@ -89,5 +89,17 @@ namespace HealthManager
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new HealthForm());
         }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // HealthForm
+            // 
+            this.ClientSize = new System.Drawing.Size(558, 353);
+            this.Name = "HealthForm";
+            this.ResumeLayout(false);
+
+        }
     }
 }
