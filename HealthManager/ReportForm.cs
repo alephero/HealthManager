@@ -26,6 +26,7 @@ namespace HealthManager
         }
         public ReportForm()
         {
+            InitializeComponent();
             this.Text = "Отчёт по здоровью";
             this.Width = 450;
             this.Height = 300;
@@ -65,5 +66,20 @@ namespace HealthManager
             this.Controls.Add(reportRichTextBox);
         }
 
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportForm));
+            this.SuspendLayout();
+            // 
+            // ReportForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "ReportForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.ResumeLayout(false);
+
+        }
     }
 }

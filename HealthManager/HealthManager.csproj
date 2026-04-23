@@ -35,6 +35,9 @@
   <PropertyGroup>
     <StartupObject>HealthManager.HealthForm</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Без названия560_20260423033653.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -73,8 +76,14 @@
     <Compile Include="SleepForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <EmbeddedResource Include="ActivityForm.resx">
+      <DependentUpon>ActivityForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HealthForm.resx">
       <DependentUpon>HealthForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NutritionForm.resx">
+      <DependentUpon>NutritionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -85,6 +94,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ReportForm.resx">
+      <DependentUpon>ReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SleepForm.resx">
+      <DependentUpon>SleepForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -97,6 +112,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Без названия560_20260423033653.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

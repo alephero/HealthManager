@@ -18,9 +18,10 @@ namespace HealthManager
         public decimal Hours { get; private set; }
         public SleepForm()
         {
+            InitializeComponent();
             this.Text = "Добавить сон";
             this.Width = 250;
-            this.Height = 150;
+            this.Height = 200;
             CreateControls();
         }
         private void CreateControls()
@@ -84,5 +85,20 @@ namespace HealthManager
             this.Controls.Add(cancelButton);
         }
 
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SleepForm));
+            this.SuspendLayout();
+            // 
+            // SleepForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "SleepForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.ResumeLayout(false);
+
+        }
     }
 }

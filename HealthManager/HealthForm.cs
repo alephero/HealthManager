@@ -17,6 +17,7 @@ namespace HealthManager
         private Button displayReportButton;
         public HealthForm()
         {
+            InitializeComponent();
             this.Text = "Управление здоровьем";
             this.Width = 450;
             this.Height = 130;
@@ -92,12 +93,16 @@ namespace HealthManager
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HealthForm));
             this.SuspendLayout();
             // 
             // HealthForm
             // 
             this.ClientSize = new System.Drawing.Size(558, 353);
+            this.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "HealthForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.ResumeLayout(false);
 
         }

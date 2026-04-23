@@ -15,6 +15,7 @@ namespace HealthManager
         public decimal Duration { get; private set; }
         public ActivityForm()
         {
+            InitializeComponent();
             this.Text = "Добавить активность";
             this.Width = 250;
             this.Height = 200;
@@ -79,6 +80,22 @@ namespace HealthManager
             this.Controls.Add(durationTextBox);
             this.Controls.Add(okButton);
             this.Controls.Add(cancelButton);
+        }
+
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ActivityForm));
+            this.SuspendLayout();
+            // 
+            // ActivityForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "ActivityForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.ResumeLayout(false);
+
         }
     }
 }

@@ -19,9 +19,10 @@ namespace HealthManager
         public decimal Calories { get; private set; }
         public NutritionForm()
         {
+            InitializeComponent();
             this.Text = "Добавить питание";
             this.Width = 250;
-            this.Height = 150;
+            this.Height = 200;
             CreateControls();
         }
         private void CreateControls()
@@ -83,6 +84,22 @@ namespace HealthManager
             this.Controls.Add(caloriesTextBox);
             this.Controls.Add(okButton);
             this.Controls.Add(cancelButton);
+        }
+
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NutritionForm));
+            this.SuspendLayout();
+            // 
+            // NutritionForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "NutritionForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.ResumeLayout(false);
+
         }
     }
 }
