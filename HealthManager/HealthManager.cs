@@ -9,6 +9,8 @@ namespace HealthManager
 {
     public class HealthManager
     {
+        private const string VERSION = "1.0";
+
         private Dictionary<string, decimal> activityTracking = new Dictionary<string, decimal>();
         private Dictionary<string, decimal> nutritionTracking = new Dictionary<string, decimal>();
         private Dictionary<string, decimal> sleepTracking = new Dictionary<string, decimal>();
