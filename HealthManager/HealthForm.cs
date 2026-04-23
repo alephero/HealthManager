@@ -18,8 +18,8 @@ namespace HealthManager
         public HealthForm()
         {
             this.Text = "Управление здоровьем";
-            this.Width = 300;
-            this.Height = 200;
+            this.Width = 450;
+            this.Height = 130;
             CreateControls();
             healthManager = new HealthManager();
         }
@@ -29,7 +29,7 @@ namespace HealthManager
             {
                 Location = new System.Drawing.Point(10, 20),
                 Text = "Отслеживать активность",
-                Size = new System.Drawing.Size(120, 25)
+                Size = new System.Drawing.Size(180, 25)
             };
             trackActivityButton.Click += (sender, e) =>
             {
@@ -42,9 +42,9 @@ namespace HealthManager
             };
             trackNutritionButton = new Button
             {
-                Location = new System.Drawing.Point(140, 20),
+                Location = new System.Drawing.Point(200, 20),
                 Text = "Отслеживать питание",
-                Size = new System.Drawing.Size(120, 25)
+                Size = new System.Drawing.Size(180, 25)
             };
             trackNutritionButton.Click += (sender, e) =>
             {
@@ -59,7 +59,7 @@ namespace HealthManager
             {
                 Location = new System.Drawing.Point(10, 50),
                 Text = "Отслеживать сон",
-                Size = new System.Drawing.Size(120, 25)
+                Size = new System.Drawing.Size(180, 25)
             };
             trackSleepButton.Click += (sender, e) =>
             {
@@ -72,9 +72,9 @@ namespace HealthManager
             };
             displayReportButton = new Button
             {
-                Location = new System.Drawing.Point(140, 50),
+                Location = new System.Drawing.Point(200, 50),
                 Text = "Показать отчёт",
-                Size = new System.Drawing.Size(120, 25)
+                Size = new System.Drawing.Size(180, 25)
             };
             displayReportButton.Click += (sender, e) => healthManager.DisplayActivityReport();
             this.Controls.Add(trackActivityButton);

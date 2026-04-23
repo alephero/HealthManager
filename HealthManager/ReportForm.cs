@@ -27,7 +27,7 @@ namespace HealthManager
         public ReportForm()
         {
             this.Text = "Отчёт по здоровью";
-            this.Width = 400;
+            this.Width = 450;
             this.Height = 300;
             CreateControls();
         }

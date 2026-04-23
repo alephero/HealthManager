@@ -17,7 +17,7 @@ namespace HealthManager
         {
             this.Text = "Добавить активность";
             this.Width = 250;
-            this.Height = 150;
+            this.Height = 200;
             CreateControls();
         }
         private void CreateControls()
