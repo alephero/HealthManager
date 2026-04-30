@@ -58,6 +58,19 @@ namespace HealthManager
             reportForm.SleepTracking = sleepTracking;
             reportForm.ShowDialog();
         }
+        public Dictionary<string, decimal> GetActivityTracking()
+        {
+            return activityTracking;
+        }
 
+        public Dictionary<string, decimal> GetNutritionTracking()
+        {
+            return nutritionTracking;
+        }
+
+        public Dictionary<string, decimal> GetSleepTracking()
+        {
+            return sleepTracking;
+        }
     }
 }
