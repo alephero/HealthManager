@@ -9,7 +9,7 @@ namespace HealthManager
 {
     public class HealthManager
     {
-        private const string VERSION = "1.0";
+        private const string VERSION = "1.1.0";
 
         private Dictionary<string, decimal> activityTracking = new Dictionary<string, decimal>();
         private Dictionary<string, decimal> nutritionTracking = new Dictionary<string, decimal>();
@@ -52,10 +52,7 @@ namespace HealthManager
         }
         public void DisplayActivityReport()
         {
-            var reportForm = new ReportForm();
-            reportForm.ActivityTracking = activityTracking;
-            reportForm.NutritionTracking = nutritionTracking;
-            reportForm.SleepTracking = sleepTracking;
+            var reportForm = new ReportForm(activityTracking, nutritionTracking, sleepTracking);
             reportForm.ShowDialog();
         }
         public Dictionary<string, decimal> GetActivityTracking()

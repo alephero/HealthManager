@@ -24,8 +24,15 @@ namespace HealthManager
         {
             set { sleepTracking = value; }
         }
-        public ReportForm()
+        public ReportForm(
+    Dictionary<string, decimal> activityTracking,
+    Dictionary<string, decimal> nutritionTracking,
+    Dictionary<string, decimal> sleepTracking)
         {
+            this.activityTracking = activityTracking;
+            this.nutritionTracking = nutritionTracking;
+            this.sleepTracking = sleepTracking;
+
             InitializeComponent();
             this.Text = "Отчёт по здоровью";
             this.Width = 450;
