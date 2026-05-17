@@ -41,36 +41,60 @@ namespace HealthManager
         }
         private void CreateControls()
         {
-            var reportRichTextBox = new RichTextBox
+            var reportTextBox = new TextBox
             {
                 Location = new System.Drawing.Point(10, 10),
-                Size = new System.Drawing.Size(380, 280)
+                Size = new System.Drawing.Size(415, 240),
+                Multiline = true,
+                ReadOnly = true,
+                ScrollBars = ScrollBars.Vertical
             };
-            reportRichTextBox.AppendText("Отчёт по активностям:\n");
-            if (activityTracking != null)
+
+            var sb = new System.Text.StringBuilder();
+
+            sb.AppendLine("Отчёт по активностям:");
+            if (activityTracking != null && activityTracking.Count > 0)
             {
                 foreach (var activity in activityTracking)
                 {
-                    reportRichTextBox.AppendText($" {activity.Key}: {activity.Value} минут.\n");
+                    sb.AppendLine($"  {activity.Key}: {activity.Value} минут.");
                 }
             }
-            reportRichTextBox.AppendText("\nОтчёт по питанию:\n");
-            if (nutritionTracking != null)
+            else
+            {
+                sb.AppendLine("  (нет данных)");
+            }
+
+            sb.AppendLine();
+            sb.AppendLine("Отчёт по питанию:");
+            if (nutritionTracking != null && nutritionTracking.Count > 0)
             {
                 foreach (var food in nutritionTracking)
                 {
-                    reportRichTextBox.AppendText($" {food.Key}: {food.Value} калорий.\n");
+                    sb.AppendLine($"  {food.Key}: {food.Value} калорий.");
                 }
             }
-            reportRichTextBox.AppendText("\nОтчёт по сну:\n");
-            if (sleepTracking != null)
+            else
+            {
+                sb.AppendLine("  (нет данных)");
+            }
+
+            sb.AppendLine();
+            sb.AppendLine("Отчёт по сну:");
+            if (sleepTracking != null && sleepTracking.Count > 0)
             {
                 foreach (var sleep in sleepTracking)
                 {
-                    reportRichTextBox.AppendText($" {sleep.Key}: {sleep.Value} часов.\n");
+                    sb.AppendLine($"  {sleep.Key}: {sleep.Value} часов.");
                 }
             }
-            this.Controls.Add(reportRichTextBox);
+            else
+            {
+                sb.AppendLine("  (нет данных)");
+            }
+
+            reportTextBox.Text = sb.ToString();
+            this.Controls.Add(reportTextBox);
         }
 
         private void InitializeComponent()
