@@ -20,7 +20,7 @@ namespace HealthManager
             InitializeComponent();
             this.Text = "Управление здоровьем";
             this.Width = 450;
-            this.Height = 130;
+            this.Height = 150;
             CreateControls();
             healthManager = new HealthManager();
         }
@@ -77,6 +77,16 @@ namespace HealthManager
                 Text = "Показать отчёт",
                 Size = new System.Drawing.Size(180, 25)
             };
+            var autoFillButton = new Button
+            {
+                Text = "Авто-заполнение (тест)",
+                Location = new System.Drawing.Point(60, 80),
+                Size = new System.Drawing.Size(250, 30),
+                BackColor = System.Drawing.Color.LightGray
+            };
+            autoFillButton.Click += AutoFillButton_Click;
+            this.Controls.Add(autoFillButton);
+            this.Controls.Add(autoFillButton);
             displayReportButton.Click += (sender, e) => healthManager.DisplayActivityReport();
             this.Controls.Add(trackActivityButton);
             this.Controls.Add(trackNutritionButton);
@@ -105,6 +115,38 @@ namespace HealthManager
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.ResumeLayout(false);
 
+        }
+        private void AutoFillButton_Click(object sender, EventArgs e) //для тестирования масштабируемости
+        {
+            {
+                var btn = sender as Button;
+                btn.Enabled = false;
+                btn.Text = "Заполнение...";
+                try
+                {
+                    int count = 10000;
+
+                    for (int i = 1; i <= count; i++)
+                    {
+                        healthManager.AddActivitySilent($"Активность_{i}", 30);
+                        healthManager.AddNutritionSilent($"Продукт_{i}", 100 + (i % 50));
+                        healthManager.AddSleepSilent($"2026-{(i % 12) + 1}-{(i % 28) + 1}", 6 + (i % 10));
+                    }
+
+                    MessageBox.Show($"Добавлено {count} записей каждого типа.\nТеперь можно проверять отчёт.",
+                        "Авто-заполнение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    btn.Enabled = true;
+                    btn.Text = "Авто-заполнение (тест)";
+                }
+            }
         }
     }
 }

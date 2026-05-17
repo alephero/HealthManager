@@ -69,5 +69,38 @@ namespace HealthManager
         {
             return sleepTracking;
         }
+        public void AddActivitySilent(string activityType, decimal duration) //Нижние методы для тестирования масштабируемости
+        {
+            if (activityTracking.ContainsKey(activityType))
+            {
+                activityTracking[activityType] += duration;
+            }
+            else
+            {
+                activityTracking.Add(activityType, duration);
+            }
+        }
+        public void AddNutritionSilent(string foodItem, decimal calories)
+        {
+            if (nutritionTracking.ContainsKey(foodItem))
+            {
+                nutritionTracking[foodItem] += calories;
+            }
+            else
+            {
+                nutritionTracking.Add(foodItem, calories);
+            }
+        }
+        public void AddSleepSilent(string date, decimal hours)
+        {
+            if (sleepTracking.ContainsKey(date))
+            {
+                sleepTracking[date] = hours;
+            }
+            else
+            {
+                sleepTracking.Add(date, hours);
+            }
+        }
     }
 }
