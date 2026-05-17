@@ -55,17 +55,28 @@ namespace HealthManager
             };
             okButton.Click += (sender, e) =>
             {
-                if (decimal.TryParse(caloriesTextBox.Text, out decimal calories))
+                if (string.IsNullOrWhiteSpace(foodItemTextBox.Text))
                 {
-                    FoodItem = foodItemTextBox.Text;
-                    Calories = calories;
-                    DialogResult = DialogResult.OK;
-                    Close();
+                    MessageBox.Show("Введите название продукта.", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
-                else
+                if (!decimal.TryParse(caloriesTextBox.Text, out decimal calories))
                 {
-                    MessageBox.Show("Пожалуйста, введите корректное значениекалорийности.");
+                    MessageBox.Show("Пожалуйста, введите корректное значение калорийности (число).", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
+                if (calories < 0)
+                {
+                    MessageBox.Show("Калорийность не может быть отрицательной.", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                FoodItem = foodItemTextBox.Text;
+                Calories = calories;
+                DialogResult = DialogResult.OK;
+                Close();
             };
             var cancelButton = new Button
             {
