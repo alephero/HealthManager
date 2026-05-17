@@ -9,11 +9,14 @@ namespace HealthManager
 {
     public class HealthManager
     {
-        private const string VERSION = "1.1.0";
+        private const string VERSION = "2.0.0";
 
         private Dictionary<string, decimal> activityTracking = new Dictionary<string, decimal>();
         private Dictionary<string, decimal> nutritionTracking = new Dictionary<string, decimal>();
         private Dictionary<string, decimal> sleepTracking = new Dictionary<string, decimal>();
+        public Dictionary<string, decimal> GetActivityTracking() => activityTracking;
+        public Dictionary<string, decimal> GetNutritionTracking() => nutritionTracking;
+        public Dictionary<string, decimal> GetSleepTracking() => sleepTracking;
         public void TrackActivity(string activityType, decimal duration)
         {
             if (activityTracking.ContainsKey(activityType))
@@ -55,20 +58,20 @@ namespace HealthManager
             var reportForm = new ReportForm(activityTracking, nutritionTracking, sleepTracking);
             reportForm.ShowDialog();
         }
-        public Dictionary<string, decimal> GetActivityTracking()
-        {
-            return activityTracking;
-        }
+        //public Dictionary<string, decimal> GetActivityTracking()
+        //{
+        //    return activityTracking;
+        //}
 
-        public Dictionary<string, decimal> GetNutritionTracking()
-        {
-            return nutritionTracking;
-        }
+        //public Dictionary<string, decimal> GetNutritionTracking()
+        //{
+        //    return nutritionTracking;
+        //}
 
-        public Dictionary<string, decimal> GetSleepTracking()
-        {
-            return sleepTracking;
-        }
+        //public Dictionary<string, decimal> GetSleepTracking()
+        //{
+        //    return sleepTracking;
+        //}
         public void AddActivitySilent(string activityType, decimal duration) //Нижние методы для тестирования масштабируемости
         {
             if (activityTracking.ContainsKey(activityType))
