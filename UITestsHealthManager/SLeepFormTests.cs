@@ -77,7 +77,6 @@ namespace UITestsHealthManager
             return null;
         }
 
-        // Тест 1: проверяем что окно "Добавить сон" открывается
         [TestMethod]
         public void TestMethod1_WillItOpen()
         {
@@ -101,7 +100,6 @@ namespace UITestsHealthManager
             Thread.Sleep(500);
         }
 
-        // Тест 2: вводим корректные данные и проверяем что окно закрывается
         [TestMethod]
         public void TestMethod2_ValidInput()
         {
@@ -140,7 +138,6 @@ namespace UITestsHealthManager
             Assert.IsNull(sleepWindowAfter, "Окно должно было закрыться после нажатия OK");
         }
 
-        // Тест 3: пустые поля — окно не должно закрываться
         [TestMethod]
         public void TestMethod3_EmptyFields()
         {
