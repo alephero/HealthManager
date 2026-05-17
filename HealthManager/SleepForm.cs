@@ -54,17 +54,44 @@ namespace HealthManager
             };
             okButton.Click += (sender, e) =>
             {
-                if (decimal.TryParse(hoursTextBox.Text, out decimal hours))
+                if (string.IsNullOrWhiteSpace(dateTextBox.Text))
                 {
-                    Date = dateTextBox.Text;
-                    Hours = hours;
-                    DialogResult = DialogResult.OK;
-                    Close();
+                    MessageBox.Show("Введите дату.", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
-                else
+                DateTime parsedDate;
+                if (!DateTime.TryParse(dateTextBox.Text, out parsedDate))
                 {
-                    MessageBox.Show("Пожалуйста, введите корректное значение часов.");
+                    MessageBox.Show("Пожалуйста, введите корректную дату (например, 17.05.2026 или 2026-05-17).", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
+                if (!decimal.TryParse(hoursTextBox.Text, out decimal hours))
+                {
+                    MessageBox.Show("Пожалуйста, введите корректное значение часов (число).", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (hours < 0)
+                {
+                    MessageBox.Show("Количество часов не может быть отрицательным.", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (hours > 24)
+                {
+                    DialogResult result = MessageBox.Show("Вы ввели больше 24 часов. Это корректно?", "Предупреждение",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.No)
+                    {
+                        return;
+                    }
+                }
+                Date = dateTextBox.Text;
+                Hours = hours;
+                DialogResult = DialogResult.OK;
+                Close();
             };
             var cancelButton = new Button
             {
