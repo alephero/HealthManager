@@ -17,7 +17,7 @@ namespace HealthManager
         {
             InitializeComponent();
             this.Text = "Добавить активность";
-            this.Width = 250;
+            this.Width = 350;
             this.Height = 200;
             CreateControls();
         }
@@ -51,17 +51,28 @@ namespace HealthManager
             };
             okButton.Click += (sender, e) =>
             {
-                if (decimal.TryParse(durationTextBox.Text, out decimal duration))
+                if (string.IsNullOrWhiteSpace(activityTypeTextBox.Text))
                 {
-                    ActivityType = activityTypeTextBox.Text;
-                    Duration = duration;
-                    DialogResult = DialogResult.OK;
-                    Close();
+                    MessageBox.Show("Введите тип активности.", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
-                else
+                if (!decimal.TryParse(durationTextBox.Text, out decimal duration))
                 {
-                    MessageBox.Show("Пожалуйста, введите корректное значениепродолжительности.");
+                    MessageBox.Show("Пожалуйста, введите корректное значение продолжительности (число).", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
+                if (duration < 0)
+                {
+                    MessageBox.Show("Продолжительность не может быть отрицательной.", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                ActivityType = activityTypeTextBox.Text;
+                Duration = duration;
+                DialogResult = DialogResult.OK;
+                Close();
             };
             var cancelButton = new Button
             {
@@ -86,9 +97,6 @@ namespace HealthManager
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ActivityForm));
             this.SuspendLayout();
-            // 
-            // ActivityForm
-            // 
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

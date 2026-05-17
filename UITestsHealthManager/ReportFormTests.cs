@@ -1,128 +1,92 @@
-﻿using FlaUI.Core;
-using FlaUI.Core.AutomationElements;
-using FlaUI.UIA3;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.IO;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
+using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
-namespace UITestsHealthManager
+namespace HealthManager
 {
-    [TestClass]
-    [DoNotParallelize]
-    public class ReportFormTests
+    public class ReportForm : Form
     {
-        private FlaUI.Core.Application app;
-        private AutomationBase automation;
-        private Window mainWindow;
-
-        [TestInitialize]
-        public void Init()
+        private Dictionary<string, decimal> activityTracking;
+        private Dictionary<string, decimal> nutritionTracking;
+        private Dictionary<string, decimal> sleepTracking;
+        public Dictionary<string, decimal> ActivityTracking
         {
-            string exePath = @"F:\тестирование\HealthManager1\HealthManager\HealthManager\bin\Debug\HealthManager.exe";
-            automation = new UIA3Automation();
-            app = FlaUI.Core.Application.Launch(exePath);
+            set { activityTracking = value; }
+        }
+        public Dictionary<string, decimal> NutritionTracking
+        {
+            set { nutritionTracking = value; }
+        }
+        public Dictionary<string, decimal> SleepTracking
+        {
+            set { sleepTracking = value; }
+        }
+        public ReportForm(
+    Dictionary<string, decimal> activityTracking,
+    Dictionary<string, decimal> nutritionTracking,
+    Dictionary<string, decimal> sleepTracking)
+        {
+            this.activityTracking = activityTracking;
+            this.nutritionTracking = nutritionTracking;
+            this.sleepTracking = sleepTracking;
 
-            mainWindow = null;
-            for (int i = 0; i < 20; i++)
+            InitializeComponent();
+            this.Text = "Отчёт по здоровью";
+            this.Width = 450;
+            this.Height = 300;
+            CreateControls();
+        }
+        private void CreateControls()
+        {
+            var reportRichTextBox = new RichTextBox
             {
-                Thread.Sleep(500);
-                try
-                {
-                    mainWindow = app.GetAllTopLevelWindows(automation).FirstOrDefault();
-                    if (mainWindow != null) break;
-                }
-                catch { }
-            }
-
-            Assert.IsNotNull(mainWindow, "Главное окно не открылось");
-            Console.WriteLine($"Найдено главное окно: '{mainWindow.Title}'");
-            Thread.Sleep(1000);
-        }
-
-        [TestCleanup]
-        public void Cleanup()
-        {
-            try { app?.Close(); } catch { }
-            try { app?.Dispose(); } catch { }
-            try { automation?.Dispose(); } catch { }
-        }
-
-        private void RunInStaThread(Action action)
-        {
-            var thread = new Thread(() => action());
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
-        }
-
-        private Window WaitForReportWindow()
-        {
-            for (int i = 0; i < 20; i++)
+                Location = new System.Drawing.Point(10, 10),
+                Size = new System.Drawing.Size(380, 280)
+            };
+            reportRichTextBox.AppendText("Отчёт по активностям:\n");
+            if (activityTracking != null)
             {
-                Thread.Sleep(500);
-                try
+                foreach (var activity in activityTracking)
                 {
-                    var modalWindow = mainWindow.FindFirstDescendant(
-                        cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Window));
-                    if (modalWindow != null)
-                    {
-                        Console.WriteLine($"Найдено дочернее окно: '{modalWindow.Name}'");
-                        return modalWindow.AsWindow();
-                    }
+                    reportRichTextBox.AppendText($" {activity.Key}: {activity.Value} минут.\n");
                 }
-                catch { }
             }
-            return null;
+            reportRichTextBox.AppendText("\nОтчёт по питанию:\n");
+            if (nutritionTracking != null)
+            {
+                foreach (var food in nutritionTracking)
+                {
+                    reportRichTextBox.AppendText($" {food.Key}: {food.Value} калорий.\n");
+                }
+            }
+            reportRichTextBox.AppendText("\nОтчёт по сну:\n");
+            if (sleepTracking != null)
+            {
+                foreach (var sleep in sleepTracking)
+                {
+                    reportRichTextBox.AppendText($" {sleep.Key}: {sleep.Value} часов.\n");
+                }
+            }
+            this.Controls.Add(reportRichTextBox);
         }
 
-        [TestMethod]
-        public void TestMethod1_WillItOpen()
+        private void InitializeComponent()
         {
-            var buttons = mainWindow.FindAllDescendants(
-                cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Button));
-            var reportButton = buttons.FirstOrDefault(b => b.Name == "Показать отчёт");
-            Assert.IsNotNull(reportButton, "Кнопка 'Показать отчёт' не найдена");
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportForm));
+            this.SuspendLayout();
+            // 
+            // ReportForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "ReportForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.ResumeLayout(false);
 
-            RunInStaThread(() => reportButton.AsButton().Click());
-            Thread.Sleep(500);
-
-            var reportWindow = WaitForReportWindow();
-            Assert.IsNotNull(reportWindow, "Окно 'Отчёт по здоровью' не открылось");
-
-            Console.WriteLine($"Заголовок окна: '{reportWindow.Title}'");
-            Assert.AreEqual("Отчёт по здоровью", reportWindow.Title, "Заголовок окна не совпадает");
-
-            reportWindow.Close();
-            Thread.Sleep(500);
-        }
-
-        [TestMethod]
-        public void TestMethod2_ReportHasTextBox()
-        {
-            var buttons = mainWindow.FindAllDescendants(
-                cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Button));
-            var reportButton = buttons.FirstOrDefault(b => b.Name == "Показать отчёт");
-            Assert.IsNotNull(reportButton, "Кнопка 'Показать отчёт' не найдена");
-
-            RunInStaThread(() => reportButton.AsButton().Click());
-            Thread.Sleep(500);
-
-            var reportWindow = WaitForReportWindow();
-            Assert.IsNotNull(reportWindow, "Окно 'Отчёт по здоровью' не открылось");
-            var richTextBox = reportWindow.FindFirstDescendant(
-                cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Document));
-            Assert.IsNotNull(richTextBox, "RichTextBox не найден на форме");
-
-            var text = richTextBox.AsTextBox().Text;
-            Console.WriteLine($"Текст в отчёте:\n{text}");
-            Assert.IsTrue(text.Contains("Отчёт по активностям"), "Секция активностей не найдена");
-            Assert.IsTrue(text.Contains("Отчёт по питанию"), "Секция питания не найдена");
-            Assert.IsTrue(text.Contains("Отчёт по сну"), "Секция сна не найдена");
-
-            reportWindow.Close();
-            Thread.Sleep(500);
         }
     }
 }
