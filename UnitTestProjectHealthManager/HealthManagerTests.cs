@@ -7,7 +7,7 @@ namespace UnitTestProjectHealthManager
     public class HealthManagerTests
     {
         [TestMethod]
-        public void TrackActivity_AddsNewActivity()
+        public void Test1_TrackActivity()
         {
             // Arrange
             var manager = new HealthManager.HealthManager();
@@ -19,7 +19,7 @@ namespace UnitTestProjectHealthManager
         }
 
         [TestMethod]
-        public void TrackActivity_WhenDuplicate_SumDuration()
+        public void Test2_TrackActivity()
         {
             var manager = new HealthManager.HealthManager();
 
@@ -31,7 +31,7 @@ namespace UnitTestProjectHealthManager
         }
 
         [TestMethod]
-        public void TrackNutrition_AddsFoodItem()
+        public void Test3_TrackNutrition()
         {
             var manager = new HealthManager.HealthManager();
 
@@ -43,7 +43,7 @@ namespace UnitTestProjectHealthManager
         }
 
         [TestMethod]
-        public void TrackSleep_AddsSleepRecord()
+        public void Test4_TrackSleep()
         {
             var manager = new HealthManager.HealthManager();
 
@@ -55,7 +55,7 @@ namespace UnitTestProjectHealthManager
         }
 
         [TestMethod]
-        public void DisplayReport_WhenCalled_DoesNotThrow()
+        public void Test5_DisplayReport()
         {
             var manager = new HealthManager.HealthManager();
             manager.TrackActivity("Test", 10);
@@ -71,7 +71,7 @@ namespace UnitTestProjectHealthManager
             }
         }
         [TestMethod]
-        public void TrackActivity_EmptyActivityType_DoesNotCrash()
+        public void Test6_TrackActivity()
         {
             var manager = new HealthManager.HealthManager();
 
@@ -82,7 +82,7 @@ namespace UnitTestProjectHealthManager
         }
 
         [TestMethod]
-        public void TrackNutrition_EmptyFoodItem_DoesNotCrash()
+        public void Test7_TrackNutrition()
         {
             var manager = new HealthManager.HealthManager();
 
@@ -93,7 +93,7 @@ namespace UnitTestProjectHealthManager
         }
 
         [TestMethod]
-        public void TrackSleep_SameDate_UpdatesHours()
+        public void Test8_TrackSleep()
         {
             var manager = new HealthManager.HealthManager();
 
@@ -101,11 +101,12 @@ namespace UnitTestProjectHealthManager
             manager.TrackSleep("2024-01-15", 2);
 
             var sleep = manager.GetSleepTracking();
+
             Assert.AreEqual(2, sleep["2024-01-15"]);
         }
 
         [TestMethod]
-        public void TrackActivity_MultipleDifferentActivities()
+        public void Test9_TrackActivity()
         {
             var manager = new HealthManager.HealthManager();
 
@@ -121,7 +122,7 @@ namespace UnitTestProjectHealthManager
         }
 
         [TestMethod]
-        public void TrackNutrition_MultipleDifferentFoods()
+        public void Test10_TrackNutrition()
         {
             var manager = new HealthManager.HealthManager();
 
